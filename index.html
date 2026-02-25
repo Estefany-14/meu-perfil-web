@@ -10,27 +10,58 @@
 <body>
     <h1>Dados do Aluno</h1>
 
-    <div class="cad" id="perfil"></div>
-    <div class="cad" id="endereco"></div>
-    <div class="cad" id="escolaridade"></div>
+    <div class="card" id="perfil"></div>
+    <div class="card" id="endereco"></div>
+    <div class="card" id="escolaridade"></div>
 
     <script>
         async function carregarDados() {
-            const perfilReq = fetch('http://localhost:3000/perfil');
-
-            const [perfilRes] = await Promise.all([perfilReq]);
-
-            const perfil = await perfilRes.json();
-
-            document.getElementById('perfil').innerHTML = `
-                <h2>Perfil<h2.
+            try {
+                
+                
+                //perfil
+                const perfilReq = fetch('http://localhost:3000/perfil');
+                const [perfilRes] = await Promise.all([perfilReq]);
+                const perfil = await perfilRes.json();
+                document.getElementById('perfil').innerHTML = `
+                    <h2>Perfil</h2>
                     <p>Nome: ${perfil.nome}</p>
                     <p>Idade: ${perfil.idade}</p>
                 `;
+
+                //endereco
+                 const enderecoReq = fetch('http://localhost:3000/endereco');
+                const [enderecoRes] = await Promise.all([enderecoReq]);
+                const endereco = await enderecoRes.json();
+                document.getElementById('endereco').innerHTML = `
+                    <h2>Endereço</h2>
+                    <p>Rua: ${endereco.rua}</p>
+                    <p>Bairro: ${endereco.bairro}</p>
+                    <p>Cep: ${endereco.cep}</p>
+                `;
+
+                 //escolaridade
+                 const escolaridadeReq = fetch('http://localhost:3000/escolaridade');
+                const [escolaridadeRes] = await Promise.all([escolaridadeReq]);
+                const escolaridade = await escolaridadeRes.json();
+                document.getElementById('escolaridade').innerHTML = `
+                    <h2>escolaridade</h2>
+                    <p>escola: ${escolaridade.escola}</p>
+                    <p>curso: ${escolaridade.curso}</p>
+                    <p>conclusao: ${escolaridade.conclusao}</p>
+                `;
+
+
+
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                alert('Erro ao carregar dados: ' + error.message);
+            }
         }
 
+        // Chamar a função quando a página carregar
+        document.addEventListener('DOMContentLoaded', carregarDados);
     </script>
-
 </body>
 
 </html>
