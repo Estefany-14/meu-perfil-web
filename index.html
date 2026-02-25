@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Aluno</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <h1>Dados do Aluno</h1>
+    
+    <div class="cad" id="perfil"></div>
+    <div class="cad" id="endereco"></div>
+    <div class="cad" id="escolaridade"></div>
+
+    <script>
+        async function carregarDados() {
+            const perfilReq = fetch('http://localhost:3000/perfil');
+
+            const[perfilRes] = await Promise.all([perfilReq]);
+
+            const perfil = await perfilRes.json();
+
+            document.getElementById('perfil').innerHTML = `
+                <h2>Perfil<h2.
+                    <p>Nome: ${perfil.nome}</p>
+                    <p>Idade: ${perfil.idade}</p>
+                `;
+        }
+
+    </script>
+    
+</body>
+</html>
